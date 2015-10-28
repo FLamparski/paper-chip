@@ -12,6 +12,8 @@
   <link rel="import" href="../paper-chip.html">
   <link rel="import" href="../../paper-styles/paper-styles.html">
   <link rel="import" href="../../paper-toast/paper-toast.html">
+  <link rel="import" href="../../paper-menu/paper-menu.html">
+  <link rel="import" href="../../paper-item/paper-item.html">
   <link rel="import" href="avatars.html">
 
 
@@ -79,6 +81,28 @@
     <paper-chip id="chip3">
       <h1>Peter Parker</h1>
       <h2>pete@dailybugle.com</h2>
+    </paper-chip>
+  </section>
+
+  <section>
+    <p>Chip with selectable menu:</p>
+    <paper-chip menu removable animated id="chip4">
+      <paper-menu selected="0" class="chip-menu">
+        <paper-item>
+          <paper-item-body two-line>
+            <div>Peter Parker</div>
+            <div secondary>pete@dailybugle.com</div>
+          </paper-item-body>
+          <iron-icon class="icon" icon="avatars:avatar-1"></iron-icon>
+        </paper-item>
+        <paper-item>
+          <paper-item-body two-line>
+            <div>Spider Mann</div>
+            <div secondary>spidey@example.com</div>
+          </paper-item-body>
+          <iron-icon class="icon" icon="avatars:avatar-2"></iron-icon>
+        </paper-item>
+      </paper-menu>
     </paper-chip>
   </section>
 

@@ -287,6 +287,19 @@ Basic chip with single letter instead of an icon
         },
 
         /**
+         * Whether or not the chip also acts as a menu.
+         *
+         * @attribute menu
+         * @type boolean
+         * @default false
+         */
+        menu: {
+          type: Boolean,
+          value: false,
+          reflectToAttribute: true
+        },
+
+        /**
          * Whether or not the chip is in its opened state.
          * 
          * @attribute opened
@@ -333,6 +346,22 @@ Basic chip with single letter instead of an icon
           // disable tabindex on remove button so that tabindex can be used for chips
           this.$.removeBtn.removeAttribute('tabindex');
         }
+        if (this.menu) {
+          // TODO: Also clear out all other elements before filling in chip
+          // TODO: Ensure this is done every time the menu selection changes
+          // TODO: Also style the list better
+          var item = this.querySelector('.iron-selected') || this.querySelector('paper-menu > paper-item:first-child');
+          var h1 = document.createElement('h1');
+          var h2 = document.createElement('h2');
+          var icon = document.createElement('iron-icon');
+          h1.textContent = item.querySelector('[two-line] > div:not([secondary])').textContent;
+          h2.textContent = item.querySelector('[two-line] > div[secondary]').textContent;
+          icon.icon = item.querySelector('iron-icon').getAttribute('icon');
+          icon.className = 'icon';
+          Polymer.dom(this).insertBefore(h1, this.querySelector('paper-menu'));
+          Polymer.dom(this).insertBefore(h2, this.querySelector('paper-menu'));
+          Polymer.dom(this).insertBefore(icon, h1);
+        }
       },
       _computeElevation: function(opened, focused, pressed) {
         if (focused || pressed) {
@@ -357,7 +386,7 @@ Basic chip with single letter instead of an icon
       remove: function() {
         var e = this.fire('remove', {}, {bubbles: false, cancelable: true});
         if (!e.defaultPrevented) {
-          this.parentNode.removeChild(this);
+          Polymer.dom(this.parentNode).removeChild(this);
         }
       },
       toggleOpened: function() {
